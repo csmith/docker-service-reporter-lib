@@ -57,10 +57,10 @@ class Connection:
             name = container['name']
             print('Adding container %s' % name)
             self._write_obj('/containers/%s' % name, container)
-            for k, v in container['labels'].items():
-                self._write('/labels/%s/%s' % (k, name), v)
-            for k, v in container['net']['addr'].items():
-                self._write('/networks/%s/%s' % (k, name), v)
+            for label, value in container['labels'].items():
+                self._write('/labels/%s/%s' % (label, name), value)
+            for net, addr in container['net']['addr'].items():
+                self._write('/networks/%s/%s' % (net, name), addr)
             self._write('/hosts/%s/%s' % (container['host'], name), name)
         self._notify_update()
 
@@ -70,10 +70,10 @@ class Connection:
             name = container['name']
             print('Removing container %s' % name)
             self._delete('/containers/%s' % name)
-            for k, _ in container['labels'].items():
-                self._delete('/labels/%s/%s' % (k, name))
-            for k, _ in container['net']['addr'].items():
-                self._delete('/networks/%s/%s' % (k, name))
+            for label, _ in container['labels'].items():
+                self._delete('/labels/%s/%s' % (label, name))
+            for net, _ in container['net']['addr'].items():
+                self._delete('/networks/%s/%s' % (net, name))
             self._delete('/hosts/%s/%s' % (container['host'], name))
         self._notify_update()
 
