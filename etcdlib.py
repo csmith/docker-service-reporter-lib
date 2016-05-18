@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import etcd
 import time
+import etcd
 
 
 class Connection:
@@ -70,9 +70,9 @@ class Connection:
             name = container['name']
             print('Removing container %s' % name)
             self._delete('/containers/%s' % name)
-            for k, v in container['labels'].items():
+            for k, _ in container['labels'].items():
                 self._delete('/labels/%s/%s' % (k, name))
-            for k, v in container['net']['addr'].items():
+            for k, _ in container['net']['addr'].items():
                 self._delete('/networks/%s/%s' % (k, name))
             self._delete('/hosts/%s/%s' % (container['host'], name))
         self._notify_update()
