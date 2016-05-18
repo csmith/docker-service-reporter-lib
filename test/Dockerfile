@@ -7,4 +7,4 @@ RUN \
     pylint
 
 WORKDIR /
-ENTRYPOINT ["pylint", "/etcdlib.py"] 
+ENTRYPOINT ["pylint", "--ignored-classes=etcd.EtcdResult", "/etcdlib.py"]
