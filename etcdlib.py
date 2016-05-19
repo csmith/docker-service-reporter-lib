@@ -37,6 +37,14 @@ class Connection:
             return None
 
 
+    def _read_map(self, key):
+        node = self._read_recursive(key)
+        if node:
+            return {child.key.split('/')[-1]: child.value for child in node.children}
+        else:
+            return {}
+
+
     def _write(self, key, value):
         self._client.write(self._prefix + key, value)
 
@@ -93,11 +101,12 @@ class Connection:
 
     def get_label(self, label):
         """Gets a map of container names to values for the given label."""
-        node = self._read_recursive('/labels/%s' % label)
-        if node:
-            return {child.key.split('/')[-1]: child.value for child in node.children}
-        else:
-            return {}
+        return self._read_map('/labels/%s' % label)
+
+
+    def get_networks(self, container):
+        """Gets a map of network names to the specified container's IP on that network."""
+        return self._read_map('/containers/%s/net/addr' % container)
 
 
     def _notify_update(self):
