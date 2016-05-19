@@ -8,10 +8,10 @@ dependencies:
     - pip install docker-compose
   override:
     - docker-compose build:
-      pwd: test
+        pwd: test
 
 test:
   override:
     - docker-compose run tests:
-      pwd: test
+        pwd: test
 
