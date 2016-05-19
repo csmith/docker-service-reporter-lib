@@ -4,12 +4,14 @@ machine:
     - docker
 
 dependencies:
+  pre:
+    - pip install docker-compose
   override:
-    - docker info
-    - docker build -t csmith/service-reporter-lib:dev .
-    - docker build -t csmith/service-reporter-lib-test:dev test
+    - docker-compose build
+  pwd: test
 
 test:
   override:
-    - docker run -it csmith/service-reporter-lib-test:dev
+    - docker-compose run tests
+  pwd: test
 

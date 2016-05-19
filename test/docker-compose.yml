@@ -1,0 +1,17 @@
+---
+version: '2'
+
+services:
+  reporter:
+    build: ..
+    image: csmith/service-reporter-lib:dev
+    networks: ['testing']
+  tests:
+    build: .
+    image: csmith/service-reporter-lib-test:dev
+    depends_on: ['reporter']
+    networks: ['testing']
+
+networks:
+  testing:
+
