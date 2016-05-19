@@ -5,7 +5,7 @@ machine:
 
 dependencies:
   pre:
-    - pip install docker-compose
+    - sudo pip install docker-compose
   override:
     - docker-compose build:
         pwd: test
